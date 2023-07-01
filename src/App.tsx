@@ -1,15 +1,15 @@
-import Sentence from "./Sentence";
+import Sentence from './comp/Sentence'
 
 function App() {
-  let str_letters = "Teste de Digitação.";
-  let letters = str_letters.split("");
+  let texto = "Teste de Digitação.";
+  
 
   return (
-    <div className="App">
+    <div>
         <h1>Teste de Digitação</h1>
-        <Sentence letters={letters} />
+        <Sentence>{texto}</Sentence>
     </div>
   );
 }
 
-export default App;
+export default App
