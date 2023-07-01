@@ -14,7 +14,7 @@ function Word({word_str, activeLetter}: WordProps){
     }
 
     return(
-        <div>
+        <div className="word">
             {letters.map((letter, index) => (
                 <Letter key={index} letter={letter} className={isActive(index)} />
             ))}

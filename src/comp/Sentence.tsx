@@ -11,14 +11,21 @@ function Sentence({children}: SentenceProps){
     let words = children.split(" ")
     let letters = [...words[activeWord].split(""), " "]
 
-    //lendo teclado
+    //lendo teclado + regra de negócio
     let handleKeyDown = (event: KeyboardEvent) => {
         if(event.key === letters[activeLetter]){
             if(activeLetter < letters.length -1){
                 setActiveLetter(activeLetter +1)
+
+                
             }else{
                 setActiveWord(activeWord +1)
                 setActiveLetter(0)
+
+                if(activeWord === words.length -1){
+                    setActiveWord(0)
+                    setActiveLetter(0)
+                }
             }
         }
 
@@ -46,10 +53,10 @@ function Sentence({children}: SentenceProps){
     //gráfico
     let createWord = (word: string, index: number) => {
         //                            :activeWord                                                     :not activeWord
-        return activeWord === index ? (<Word word_str={words[index]} activeLetter={activeLetter}></Word>) : (<Word word_str={words[index]} activeLetter={-1}></Word>)
+        return activeWord === index ? (<Word word_str={word} activeLetter={activeLetter}></Word>) : (<Word word_str={word} activeLetter={-1}></Word>)
     }
     return(
-        <div>
+        <div className="sentence">
             {words.map((word, index) => (
                 createWord(word, index)                
             ))}
