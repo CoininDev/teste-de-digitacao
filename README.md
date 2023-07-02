@@ -9,7 +9,6 @@ Ele Ainda não está pronto.
 
 - [x] Os gráficos da aplicação.
 - [x] O funcionamento de verificação de tecla (se a tecla pressionada é a correta).
-- [x] A opção de voltar para a letra anterior com a tecla 'Backspace'.
 
 ### O que ainda falta:
 
