@@ -9,9 +9,9 @@ Ele Ainda não está pronto.
 
 - [x] Os gráficos da aplicação.
 - [x] O funcionamento de verificação de tecla (se a tecla pressionada é a correta).
+- [x] O contador de WPM. (bug conhecido: se o texto durar menos de 1 minuto, o contador terá um número mais do que o esperado.)
 
 ### O que ainda falta:
 
-- [ ] O contador de WPM.
 - [ ] Ajustes visuais.
 - [ ] Seleção de frases aleatórias.

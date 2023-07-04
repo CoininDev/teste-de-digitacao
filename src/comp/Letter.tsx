@@ -6,7 +6,7 @@ interface LetterProps{
 
 function Letter({key, letter, className}: LetterProps){
     return(
-        <div key={key} className={className}>{letter}</div>
+        <div className={className}>{letter}</div>
     )
 }
 
