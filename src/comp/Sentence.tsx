@@ -1,56 +1,67 @@
 import { useEffect, useState } from "react"
 import Word from './Word'
-import WPMCounter from "./WPMCounter"
+import WPMResult from "./WPMResult"
 
 interface SentenceProps{
     children: string
 }
 
 function Sentence({children}: SentenceProps){
-    let [startTime, setStartTime] = useState(0)
+    let [timeStart, setTimeStart] = useState<number>(0)
+    let [timeEnd, setTimeEnd] = useState<number>(0)
+    let [timeTaken, setTimeTaken] = useState(0)
     let [showWPMCounter, setShowWPMCounter] = useState(0)
+    let [testStarted, setTestStarted] = useState<boolean>(false)
+
     let [activeWord, setActiveWord] = useState(0)
     let [activeLetter, setActiveLetter] = useState(0)
     let words = children.split(" ")
     
     //lendo teclado + regra de negócio
-    let handleKeyDown = (event: KeyboardEvent) => {
+    let handleKeyPress = (event: KeyboardEvent) => {
+        if(!testStarted){
+          setTimeStart(performance.now())
+          setTestStarted(true)
+        }
+
         let lettersOfActiveWord = [...words[activeWord].split(""), " "]
 
         if(event.key === lettersOfActiveWord[activeLetter]){
             if(activeLetter < lettersOfActiveWord.length -1){
                 setActiveLetter(activeLetter +1)
 
-                
+
             }else{
                 setActiveWord(activeWord +1)
                 setActiveLetter(0)
 
+                //teste acabou
                 if(activeWord === words.length -1){
-                    setActiveWord(0)
-                    setActiveLetter(0)
-                    setShowWPMCounter(1)
-                }
-                if(startTime === 0){
-                  setStartTime(new Date().getTime())
+                  setTimeEnd(performance.now())
+                  setShowWPMCounter(1)
                 }
             }
         }
+
+        //impedir que o site role para baixo ao pressionar espaço.
+        if(event.key === " "){
+          event.preventDefault()
+        }
     }
     useEffect(() => {
-      document.addEventListener("keypress", handleKeyDown)
+      document.addEventListener("keypress", handleKeyPress)
       
       return () => {
-        document.removeEventListener("keypress", handleKeyDown)
+        document.removeEventListener("keypress", handleKeyPress)
       }
-    }, [activeLetter, words, activeWord, startTime, showWPMCounter])
+    }, [activeLetter, words, activeWord, showWPMCounter])
 
 
 
     //gráfico
     if(showWPMCounter){
       return(
-        <WPMCounter startTime={startTime} totalWords={words.length} />
+        <WPMResult timeStart={timeStart} timeEnd={timeEnd} totalWords={words.length} />
       )
     }
 
